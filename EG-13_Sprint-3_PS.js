@@ -1,8 +1,22 @@
-// contains Duplicate
+// Move Zeroes
 
-var containsDuplicate = function (nums) {
-  const uniqueNumbers = new Set(nums);
-  return uniqueNumbers.size !== nums.length;
+
+var moveZeroes = function (nums) {
+  let index = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) {
+      nums[index] = nums[i];
+      index++;
+    }
+  }
+
+  while (index < nums.length) {
+    nums[index] = 0;
+    index++;
+  }
+
+  return nums;
 }
 
-console.log(containsDuplicate([1, 2, 3, 1]));  
+console.log(moveZeroes([0, 1, 0, 3, 12]))
