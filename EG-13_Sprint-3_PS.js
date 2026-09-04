@@ -1,22 +1,47 @@
-// Majority Element
+
+var threeSum = function (nums) {
+  const result = [];
 
 
-var majorityElement = function (nums) {
-  let count = 0;
-  let candidate = null;
+  nums.sort((a, b) => a - b);
 
-  for (let num of nums) {
-    if (count === 0) {
-      candidate = num;
+  for (let i = 0; i < nums.length - 2; i++) {
+
+
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
     }
-    if (num === candidate) {
-      count++;
-    } else {
-      count--;
+
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right];
+
+      if (sum === 0) {
+        result.push([nums[i], nums[left], nums[right]]);
+
+        left++;
+        right--;
+
+
+        while (left < right && nums[left] === nums[left - 1]) {
+          left++;
+        }
+
+        while (left < right && nums[right] === nums[right + 1]) {
+          right--;
+        }
+
+      } else if (sum < 0) {
+        left++;
+      } else {
+        right--;
+      }
     }
   }
 
-  return candidate;
-}
+  return result;
+};
 
-console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));  
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));  
