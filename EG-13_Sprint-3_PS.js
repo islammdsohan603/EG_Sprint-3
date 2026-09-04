@@ -1,21 +1,22 @@
+// Majority Element
 
 
-// Ransom Note
+var majorityElement = function (nums) {
+  let count = 0;
+  let candidate = null;
 
-var canConstruct = function (ransomNote, magazine) {
-  const count = {};
-
-  for (let char of magazine) {
-    count[char] = (count[char] || 0) + 1;
-  }
-
-  for (let char of ransomNote) {
-    if (!count[char]) {
-      return false;
+  for (let num of nums) {
+    if (count === 0) {
+      candidate = num;
     }
-    count[char]--;
+    if (num === candidate) {
+      count++;
+    } else {
+      count--;
+    }
   }
-  return true;
+
+  return candidate;
 }
 
-console.log(canConstruct("aa", "aab"));
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));  
