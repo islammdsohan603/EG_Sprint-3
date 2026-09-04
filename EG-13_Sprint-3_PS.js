@@ -1,13 +1,21 @@
 
-// valid anagram
 
-var isAnagram = function (s, t) {
-  if (s.length !== t.length) {
-    return false;
+// Ransom Note
+
+var canConstruct = function (ransomNote, magazine) {
+  const count = {};
+
+  for (let char of magazine) {
+    count[char] = (count[char] || 0) + 1;
   }
-  const sortedS = s.split('').sort().join('');
-  const sortedT = t.split('').sort().join('');
-  return sortedS === sortedT;
+
+  for (let char of ransomNote) {
+    if (!count[char]) {
+      return false;
+    }
+    count[char]--;
+  }
+  return true;
 }
 
-console.log(isAnagram("anagram", "nagaram"));
+console.log(canConstruct("aa", "aab"));
