@@ -1,47 +1,25 @@
 
-var threeSum = function (nums) {
-  const result = [];
+var subarraySum = function (nums, k) {
+  let count = 0;
+  let prefixSum = 0;
+
+  const map = new Map();
 
 
-  nums.sort((a, b) => a - b);
+  map.set(0, 1);
 
-  for (let i = 0; i < nums.length - 2; i++) {
+  for (let num of nums) {
+    prefixSum += num;
 
 
-    if (i > 0 && nums[i] === nums[i - 1]) {
-      continue;
+    if (map.has(prefixSum - k)) {
+      count += map.get(prefixSum - k);
     }
 
-    let left = i + 1;
-    let right = nums.length - 1;
-
-    while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
-
-      if (sum === 0) {
-        result.push([nums[i], nums[left], nums[right]]);
-
-        left++;
-        right--;
-
-
-        while (left < right && nums[left] === nums[left - 1]) {
-          left++;
-        }
-
-        while (left < right && nums[right] === nums[right + 1]) {
-          right--;
-        }
-
-      } else if (sum < 0) {
-        left++;
-      } else {
-        right--;
-      }
-    }
+    map.set(prefixSum, (map.get(prefixSum) || 0) + 1);
   }
 
-  return result;
+  return count;
 };
 
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));  
+console.log(subarraySum([1, 1, 1], 2)); 
