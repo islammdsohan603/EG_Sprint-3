@@ -1,27 +1,29 @@
-// Longest Consecutive Sequence
+// Sort Colors
 
-var longestConsecutive = function(nums) {
+var sortColors = function(nums) {
+    let low = 0;
+    let mid = 0;
+    let high = nums.length - 1;
 
-    const numSet = new Set(nums);
-    let longest = 0;
+    while (mid <= high) {
 
-    for (let num of numSet) {
+        if (nums[mid] === 0) {
+            [nums[low], nums[mid]] = [nums[mid], nums[low]];
+            low++;
+            mid++;
 
-        if (!numSet.has(num - 1)) {
+        } else if (nums[mid] === 1) {
+            mid++;
 
-            let currentNum = num;
-            let currentLength = 1;
-
-            while (numSet.has(currentNum + 1)) {
-                currentNum++;
-                currentLength++;
-            }
-
-            longest = Math.max(longest, currentLength);
+        } else {
+            [nums[mid], nums[high]] = [nums[high], nums[mid]];
+            high--;
         }
     }
-
-    return longest;
 };
 
-console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
+const nums = [2, 0, 2, 1, 1, 0];
+
+sortColors(nums);
+
+console.log(nums);
