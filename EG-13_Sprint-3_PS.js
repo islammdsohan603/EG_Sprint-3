@@ -1,17 +1,27 @@
-// top k Frequent Elements
+// Longest Consecutive Sequence
 
-var topKFrequent=function(nums,k){
+var longestConsecutive = function(nums) {
 
-  const frequency=new Map();
+    const numSet = new Set(nums);
+    let longest = 0;
 
-  for(let num of nums){
-    frequency.set(num,(frequency.get(num)||0));
-  }
+    for (let num of numSet) {
 
-  const sorted=[...frequency.entries()].sort((a,b)=>b[1]-a[1]);
+        if (!numSet.has(num - 1)) {
 
-  return sorted.slice(0,k).map(item=>item[0])
+            let currentNum = num;
+            let currentLength = 1;
 
-}
+            while (numSet.has(currentNum + 1)) {
+                currentNum++;
+                currentLength++;
+            }
 
-console.log(topKFrequent([1,1,1,2,2,3],2))
+            longest = Math.max(longest, currentLength);
+        }
+    }
+
+    return longest;
+};
+
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
