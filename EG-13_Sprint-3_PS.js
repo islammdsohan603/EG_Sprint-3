@@ -1,25 +1,17 @@
+// top k Frequent Elements
 
-var subarraySum = function (nums, k) {
-  let count = 0;
-  let prefixSum = 0;
+var topKFrequent=function(nums,k){
 
-  const map = new Map();
+  const frequency=new Map();
 
-
-  map.set(0, 1);
-
-  for (let num of nums) {
-    prefixSum += num;
-
-
-    if (map.has(prefixSum - k)) {
-      count += map.get(prefixSum - k);
-    }
-
-    map.set(prefixSum, (map.get(prefixSum) || 0) + 1);
+  for(let num of nums){
+    frequency.set(num,(frequency.get(num)||0));
   }
 
-  return count;
-};
+  const sorted=[...frequency.entries()].sort((a,b)=>b[1]-a[1]);
 
-console.log(subarraySum([1, 1, 1], 2)); 
+  return sorted.slice(0,k).map(item=>item[0])
+
+}
+
+console.log(topKFrequent([1,1,1,2,2,3],2))
